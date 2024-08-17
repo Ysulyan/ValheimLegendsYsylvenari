@@ -16,6 +16,7 @@ namespace ValheimLegends
     {
         private static int ScriptChar_Layermask = LayerMask.GetMask("character", "character_noenv", "character_trigger", "character_net", "character_ghost", "Default", "static_solid", "Default_small", "piece_nonsolid", "piece", "terrain", "vehicle", "viewblock", "Water");
         public static Vector3 fadePoint;
+        public static Quaternion fadeRotation;
         public static Vector3 backstabPoint;
         public static Vector3 backstabVector;
         public static bool throwDagger = false;
@@ -253,7 +254,7 @@ namespace ValheimLegends
                     player.Message(MessageHud.MessageType.TopLeft, "No target");
                 }
             }            
-            else if(VL_Utility.Ability2_Input_Down)
+            else if(VL_Utility.Ability2_Input_Down) // Fade ability
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
@@ -279,6 +280,7 @@ namespace ValheimLegends
 
                         //Apply effects
                         fadePoint = player.transform.position;
+                        fadeRotation = player.transform.rotation;
                         canGainTrick = true;
 
                         //Skill gain
@@ -296,7 +298,7 @@ namespace ValheimLegends
                         GameObject effect = ZNetScene.instance.GetPrefab("vfx_odin_despawn");
                         UnityEngine.Object.Instantiate(effect, player.GetCenterPoint(), Quaternion.identity);
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("sfx_wraith_death"), player.transform.position, Quaternion.identity);
-                        player.transform.position = fadePoint;
+                        player.TeleportTo(fadePoint, fadeRotation, false);
                         if (canGainTrick)
                         {
                             SE_Rogue se_r = (SE_Rogue)player.GetSEMan().GetStatusEffect("SE_VL_Rogue".GetStableHashCode());
