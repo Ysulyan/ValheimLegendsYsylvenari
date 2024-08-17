@@ -702,7 +702,7 @@ namespace ValheimLegends
         {
             private static ItemDrop.ItemData Postfix(ItemDrop.ItemData __weapon, ref Character __instance)
             {
-                if (__weapon != null && __weapon.m_shared.m_name == "Unarmed")
+                if (__instance.IsPlayer() && __weapon != null && __weapon.m_shared.m_name == "Unarmed")
                 {
                     Player player = (Player)__instance;
                     //ZLog.Log("weapon damage " + __weapon.m_shared.m_damages.m_blunt + " skill factor " + player.GetSkillFactor(Skills.SkillType.Unarmed) + "  modifier " + VL_GlobalConfigs.g_UnarmedDamage);
