@@ -279,8 +279,8 @@ namespace ValheimLegends
                         //Lingering effects
 
                         //Store location
-                        fadePoint = playerBody.position;
-                        //fadeRotation = playerBody.rotation;
+                        fadePoint = playerBody.position;// + new Vector3(0f,1f,0f);
+                        //ZLog.Log("Fadepoint: " + fadePoint);
 
                         //fadeRotation = player.transform.rotation;
                         canGainTrick = true;
@@ -295,14 +295,15 @@ namespace ValheimLegends
                 }
                 else if(player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
-                    float maxFade = 100f;
+                    float maxFade = 50f;
                     if ((fadePoint - player.transform.position).sqrMagnitude < maxFade * maxFade)
                     {
                         GameObject effect = ZNetScene.instance.GetPrefab("vfx_odin_despawn");
                         UnityEngine.Object.Instantiate(effect, player.GetCenterPoint(), Quaternion.identity);
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("sfx_wraith_death"), player.transform.position, Quaternion.identity);
                         playerBody.MovePosition(fadePoint);
-                        //playerBody.MoveRotation(fadeRotation);
+                        altitude = 0;
+
                         if (canGainTrick)
                         {
                             SE_Rogue se_r = (SE_Rogue)player.GetSEMan().GetStatusEffect("SE_VL_Rogue".GetStableHashCode());
