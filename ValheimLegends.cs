@@ -13,14 +13,14 @@ using TMPro;
 
 namespace ValheimLegends
 {
-    [BepInPlugin("ValheimLegends", "ValheimLegends", "0.7.3")]
+    [BepInPlugin("ValheimLegends", "ValheimLegends", "0.7.4")]
     public class ValheimLegends : BaseUnityPlugin
     {
 
         public static Harmony _Harmony;
 
-        public const string Version = "0.7.3";
-        public const float VersionF = 0.73f;
+        public const string Version = "0.7.4";
+        public const float VersionF = 0.74f;
         public const string ModName = "Valheim Legends Fork";
         public static bool playerEnabled = true;
 

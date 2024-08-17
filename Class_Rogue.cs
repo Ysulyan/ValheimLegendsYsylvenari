@@ -278,9 +278,11 @@ namespace ValheimLegends
 
                         //Lingering effects
 
-                        //Apply effects
-                        fadePoint = player.transform.position;
-                        fadeRotation = player.transform.rotation;
+                        //Store location
+                        fadePoint = playerBody.position;
+                        //fadeRotation = playerBody.rotation;
+
+                        //fadeRotation = player.transform.rotation;
                         canGainTrick = true;
 
                         //Skill gain
@@ -293,12 +295,14 @@ namespace ValheimLegends
                 }
                 else if(player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
-                    if ((fadePoint - player.transform.position).magnitude < 100f)
+                    float maxFade = 100f;
+                    if ((fadePoint - player.transform.position).sqrMagnitude < maxFade * maxFade)
                     {
                         GameObject effect = ZNetScene.instance.GetPrefab("vfx_odin_despawn");
                         UnityEngine.Object.Instantiate(effect, player.GetCenterPoint(), Quaternion.identity);
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("sfx_wraith_death"), player.transform.position, Quaternion.identity);
-                        player.TeleportTo(fadePoint, fadeRotation, false);
+                        playerBody.MovePosition(fadePoint);
+                        //playerBody.MoveRotation(fadeRotation);
                         if (canGainTrick)
                         {
                             SE_Rogue se_r = (SE_Rogue)player.GetSEMan().GetStatusEffect("SE_VL_Rogue".GetStableHashCode());
