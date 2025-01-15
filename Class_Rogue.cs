@@ -32,7 +32,7 @@ namespace ValheimLegends
                 {
                     ItemDrop.ItemData.SharedData sid = p.GetCurrentWeapon().m_shared;
                     ItemDrop.ItemData leftItem = Traverse.Create(root: p).Field("m_leftItem").GetValue<ItemDrop.ItemData>();
-                    if (sid != null && (sid.m_name.ToLower().Contains("knife") || sid.m_name.Contains("dagger")) && leftItem == null)
+                    if (sid != null && (sid.m_name.ToLower().Contains("knife") || sid.m_name.Contains("dagger")))
                     {
                         return true;
                     }
